@@ -1,11 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class DisplayFList extends Component {
-  render() {
-    return (
-      <div>
-        
-      </div>
-    )
+import FriendCard from './FriendCard';
+
+const DisplayFList = props => {
+
+    return(
+      <section>
+          {props.friendsList.map((friend, index) => (
+              <FriendCard friend={friend} key={index} />
+          ))}
+      </section>
+    );
   }
-}
+
+export default DisplayFList;

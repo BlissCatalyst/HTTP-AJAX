@@ -26,6 +26,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <DisplayFList friendsList={this.state.friendsList} />
       </div>
     );
   }

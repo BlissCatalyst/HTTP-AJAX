@@ -23,6 +23,7 @@ class DisplayFList extends React.Component {
             age: age,
             email: email
         }
+        console.log(newFriend);
     }
 
     submitFriend = e => {
@@ -31,7 +32,7 @@ class DisplayFList extends React.Component {
             age: [],
             email: ''
          })
-         this.addName(e, this.state.item, this.state.age, this.state.email)
+         this.addName(e, this.state.name, this.state.age, this.state.email)
     };
 
     render() {
@@ -62,6 +63,7 @@ class DisplayFList extends React.Component {
                         name="email"
                         onChange={this.handleChanges}
                     />
+                    <button>Submit</button>
                 </form>
             </section>
         </div>

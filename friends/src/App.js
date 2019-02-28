@@ -12,6 +12,15 @@ class App extends Component {
     };
   }
 
+  addFriend = (e, friend) => {
+    e.preventDefault();
+    friend.age = Number(friend.age);
+    axios
+    .post('http://localhost:5000/friends', friend)
+    .then(res => {console.log(res)})
+    .catch(err => {console.log(err)});
+  }
+
   componentDidMount() {
     axios
     .get('http://localhost:5000/friends')
@@ -26,7 +35,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <DisplayFList friendsList={this.state.friendsList} />
+        <DisplayFList friendsList={this.state.friendsList} addFriend={this.addFriend} />
       </div>
     );
   }

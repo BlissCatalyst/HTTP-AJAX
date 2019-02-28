@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import FriendCard from './FriendCard';
 
@@ -17,35 +16,10 @@ class DisplayFList extends React.Component {
         e.persist();
         this.setState(prevState => ({ 
             friend: {
-                ...this.state.friend,
+                ...prevState.friend,
                 [e.target.name]: e.target.value
             }
         }));
-    };
-
-    addName = (e, name, age, email) => {
-        e.preventDefault();
-        const newFriend = {
-            name: name,
-            age: age,
-            email: email
-        }
-        console.log(newFriend);
-        // axios
-        // .post(`https://localhost:5000/friends`, newFriend)
-        // .then(res => console.log(res))
-        // .catch(err => console.log(err));
-    }
-
-    submitFriend = e => {
-        this.setState({ 
-            friend: {
-                name: '',
-                age: '',
-                email: ''
-            }
-         })
-         this.addName(e, this.state.friend.name, Number(this.state.friend.age), this.state.friend.email)
     };
 
     render() {
@@ -57,7 +31,7 @@ class DisplayFList extends React.Component {
                 ))}
             </section>
             <section>
-                <form onSubmit={this.submitFriend}>
+                <form onSubmit={e => this.props.addFriend(e, this.state.friend)}>
                     <input 
                         type="text"
                         value={this.state.friend.name}
@@ -76,7 +50,7 @@ class DisplayFList extends React.Component {
                         name="email"
                         onChange={this.handleChanges}
                     />
-                    <button>Submit</button>
+                    <button>Add New Friend</button>
                 </form>
             </section>
         </div>

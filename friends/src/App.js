@@ -12,15 +12,6 @@ class App extends Component {
     };
   }
 
-  addFriend = (e, friend) => {
-    e.preventDefault();
-    friend.age = Number(friend.age);
-    axios
-    .post('http://localhost:5000/friends', friend)
-    .then(res => {console.log(res)})
-    .catch(err => {console.log(err)});
-  }
-
   componentDidMount() {
     axios
     .get('http://localhost:5000/friends')
@@ -32,10 +23,35 @@ class App extends Component {
     });
   }
 
+  addFriend = (e, friend) => {
+    e.preventDefault();
+    friend.age = Number(friend.age);
+    axios
+    .post('http://localhost:5000/friends', friend)
+    .then(res => {
+      this.setState({
+        friendsList: res.data
+      });
+    })
+    .catch(err => {console.log(err)});
+  }
+
+  deleteFriend = (e, id) => {
+    e.preventDefault();
+    axios
+    .delete(`http://localhost:5000/friends/${id}`)
+    .then(res => {
+      this.setState({
+        friendsList: res.data
+      });
+    })
+    .catch(err => {console.log(err)});
+  }
+
   render() {
     return (
       <div>
-        <DisplayFList friendsList={this.state.friendsList} addFriend={this.addFriend} />
+        <DisplayFList friendsList={this.state.friendsList} addFriend={this.addFriend} deleteFriend={this.deleteFriend} />
       </div>
     );
   }

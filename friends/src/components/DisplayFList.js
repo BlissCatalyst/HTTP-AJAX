@@ -27,7 +27,7 @@ class DisplayFList extends React.Component {
         <div>
             <section>
                 {this.props.friendsList.map((friend, index) => (
-                    <FriendCard friend={friend} key={index} />
+                    <FriendCard friend={friend} key={index} deleteFriend={this.props.deleteFriend} />
                 ))}
             </section>
             <section>

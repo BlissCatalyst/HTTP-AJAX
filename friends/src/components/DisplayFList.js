@@ -1,19 +1,26 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 
 import FriendCard from './FriendCard';
 
 class DisplayFList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+
+    state = {
+        friend: {
             name: '',
-            age: [],
+            age: '',
             email: ''
-        };
+        }
     }
 
     handleChanges = e => {
-        this.setState({ [e.target.name]: e.target.value });
+        e.persist();
+        this.setState(prevState => ({ 
+            friend: {
+                ...this.state.friend,
+                [e.target.name]: e.target.value
+            }
+        }));
     };
 
     addName = (e, name, age, email) => {
@@ -24,15 +31,21 @@ class DisplayFList extends React.Component {
             email: email
         }
         console.log(newFriend);
+        // axios
+        // .post(`https://localhost:5000/friends`, newFriend)
+        // .then(res => console.log(res))
+        // .catch(err => console.log(err));
     }
 
     submitFriend = e => {
         this.setState({ 
-            name: '',
-            age: [],
-            email: ''
+            friend: {
+                name: '',
+                age: '',
+                email: ''
+            }
          })
-         this.addName(e, this.state.name, this.state.age, this.state.email)
+         this.addName(e, this.state.friend.name, Number(this.state.friend.age), this.state.friend.email)
     };
 
     render() {
@@ -47,19 +60,19 @@ class DisplayFList extends React.Component {
                 <form onSubmit={this.submitFriend}>
                     <input 
                         type="text"
-                        value={this.state.name}
+                        value={this.state.friend.name}
                         name="name"
                         onChange={this.handleChanges}
                     />
                     <input 
                         type="number"
-                        value={this.state.age}
+                        value={this.state.friend.age}
                         name="age"
                         onChange={this.handleChanges}
                     />
                     <input 
                         type="text"
-                        value={this.state.email}
+                        value={this.state.friend.email}
                         name="email"
                         onChange={this.handleChanges}
                     />

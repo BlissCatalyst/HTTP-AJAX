@@ -8,6 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      activeFriend: null,
       friendsList: []
     };
   }
@@ -48,10 +49,37 @@ class App extends Component {
     .catch(err => {console.log(err)});
   }
 
+  setUpdateForm = (e, friend) => {
+    e.preventDefault();
+    this.setState({
+      activeFriend: friend
+    });
+  }
+
+  updateFriend = (e, friend) => {
+    e.preventDefault();
+    axios
+    .put(`http://localhost:5000/friends/${friend.id}`, friend)
+    .then(res => {
+      this.setState({
+        friendsList: res.data,
+        activeFriend: null
+      });
+    })
+    .catch(err => {console.log(err)});
+  }
+
   render() {
     return (
       <div>
-        <DisplayFList friendsList={this.state.friendsList} addFriend={this.addFriend} deleteFriend={this.deleteFriend} />
+        <DisplayFList 
+        friendsList={this.state.friendsList} 
+        addFriend={this.addFriend} 
+        deleteFriend={this.deleteFriend}
+        updateFriend={this.updateFriend}
+        setUpdateForm={this.setUpdateForm}
+        activeFriend={this.state.activeFriend}
+        />
       </div>
     );
   }
